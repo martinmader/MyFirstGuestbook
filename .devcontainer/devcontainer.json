@@ -1,0 +1,15 @@
+{
+  "name": "MyFirstGuestbook",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:1-9.0",
+  "forwardPorts": [5038],
+  "portsAttributes": {
+    "5038": { "label": "Gästebuch App" }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code"
+      ]
+    }
+  }
+}
