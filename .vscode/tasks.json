@@ -35,7 +35,18 @@
                 "--project",
                 "${workspaceFolder}/src/MyFirstGuestbook.Web/MyFirstGuestbook.Web.csproj"
             ],
-            "problemMatcher": "$msCompile"
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "dotnet-watch",
+                "pattern": {
+                    "regexp": "^\\s*dotnet watch"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "dotnet watch 🔨 Build",
+                    "endsPattern": "Now listening on:"
+                }
+            }
         }
     ]
 }
