@@ -20,4 +20,12 @@ public class GuestbookController(GuestbookService guestbookService) : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        guestbookService.DeleteEntry(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

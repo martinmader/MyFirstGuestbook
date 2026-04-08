@@ -20,4 +20,7 @@ public class GuestbookService
             CreatedAt = DateTime.UtcNow
         });
     }
+
+    public void DeleteEntry(int id) =>
+        _entries.RemoveAll(e => e.Id == id);
 }
