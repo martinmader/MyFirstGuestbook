@@ -1,0 +1,66 @@
+@model IReadOnlyList<MyFirstGuestbook.Web.Models.GuestbookEntry>
+@{
+    ViewData["Title"] = "Gästebuch";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">
+        <i class="bi bi-book"></i> Gästebuch
+    </h1>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Neuen Eintrag hinterlassen</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="Add" method="post">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label for="name" class="form-label fw-semibold">Dein Name</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                           placeholder="Max Mustermann" maxlength="100" required />
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label fw-semibold">Deine Nachricht</label>
+                    <textarea class="form-control" id="message" name="message"
+                              rows="3" placeholder="Schreib etwas..." maxlength="1000" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    Eintrag hinzufügen
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <h2 class="mb-3">Einträge (@Model.Count)</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Noch keine Einträge vorhanden. Sei der Erste!
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 g-3">
+            @foreach (var entry in Model)
+            {
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title mb-0">
+                                    <i class="bi bi-person-circle me-1"></i>@entry.Name
+                                </h5>
+                                <small class="text-muted">
+                                    @entry.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+                                </small>
+                            </div>
+                            <p class="card-text">@entry.Message</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

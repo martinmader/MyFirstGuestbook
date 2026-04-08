@@ -1,0 +1,23 @@
+using Microsoft.AspNetCore.Mvc;
+using MyFirstGuestbook.Web.Services;
+
+namespace MyFirstGuestbook.Web.Controllers;
+
+public class GuestbookController(GuestbookService guestbookService) : Controller
+{
+    public IActionResult Index()
+    {
+        var entries = guestbookService.GetEntries();
+        return View(entries);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Add(string name, string message)
+    {
+        if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(message))
+            guestbookService.AddEntry(name.Trim(), message.Trim());
+
+        return RedirectToAction(nameof(Index));
+    }
+}
