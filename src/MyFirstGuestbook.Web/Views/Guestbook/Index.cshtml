@@ -25,6 +25,23 @@
                     <textarea class="form-control" id="message" name="message"
                               rows="3" placeholder="Schreib etwas..." maxlength="1000" required></textarea>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Markierungsfarbe</label>
+                    <div class="d-flex gap-2 flex-wrap">
+                        @foreach (var (hex, label) in new[] {
+                            ("#ffffff", "Keine"), ("#fef9c3", "Gelb"), ("#dcfce7", "Grün"),
+                            ("#dbeafe", "Blau"), ("#fce7f3", "Pink"), ("#ffe4e6", "Rot")
+                        })
+                        {
+                            <label class="d-flex align-items-center gap-1" style="cursor:pointer">
+                                <input type="radio" name="color" value="@hex"
+                                       @(hex == "#ffffff" ? "checked" : "") />
+                                <span style="display:inline-block;width:20px;height:20px;background:@hex;border:1px solid #ccc;border-radius:4px"></span>
+                                @label
+                            </label>
+                        }
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">
                     Eintrag hinzufügen
                 </button>
@@ -46,7 +63,7 @@
             @foreach (var entry in Model)
             {
                 <div class="col">
-                    <div class="card shadow-sm">
+                    <div class="card shadow-sm" style="border-left: 5px solid @entry.Color; background-color: @entry.Color">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-start mb-2">
                                 <h5 class="card-title mb-0">

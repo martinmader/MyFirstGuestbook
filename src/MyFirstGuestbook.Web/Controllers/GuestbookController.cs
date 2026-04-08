@@ -13,10 +13,10 @@ public class GuestbookController(GuestbookService guestbookService) : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Add(string name, string message)
+    public IActionResult Add(string name, string message, string color = "#ffffff")
     {
         if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(message))
-            guestbookService.AddEntry(name.Trim(), message.Trim());
+            guestbookService.AddEntry(name.Trim(), message.Trim(), color);
 
         return RedirectToAction(nameof(Index));
     }

@@ -10,14 +10,15 @@ public class GuestbookService
     public IReadOnlyList<GuestbookEntry> GetEntries() =>
         _entries.OrderByDescending(e => e.CreatedAt).ToList();
 
-    public void AddEntry(string name, string message)
+    public void AddEntry(string name, string message, string color = "#ffffff")
     {
         _entries.Add(new GuestbookEntry
         {
             Id = _nextId++,
             Name = name,
             Message = message,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
+            Color = color
         });
     }
 
